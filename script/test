@@ -1,0 +1,10 @@
+#!/bin/bash -e
+
+SERVICES="atst authnid fundz"
+cd $(dirname $0)/../services
+top=$(pwd)
+for service in $SERVICES; do
+    cd $top/$service
+    script/test
+done
+

@@ -1,0 +1,24 @@
+#!/bin/bash -e
+
+# "script/bootstrap is used solely for fulfilling dependencies of the project."
+#    -- scripts-to-rule-them-all
+
+# In this case, the dependencies are the other services, so this
+# script runs script/setup for all the other services.
+
+SERVICES="atst authnid fundz"
+
+cd "$(dirname "${0}")/.."
+cd services
+top=$(pwd)
+mkdir -p log
+for service in $SERVICES; do
+    cd $top
+    echo "Cloning $service"
+    git clone -q -o github github.com:dod-ccpo/$service
+    # "script/setup is typically run after an initial clone"
+    cd $top/$service
+    log=$top/log/$service.setup.log
+    echo "Writing to $log";
+    script/setup > $log 2>&1 || echo "Setup failed for $service"
+done

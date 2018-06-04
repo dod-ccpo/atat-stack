@@ -1,0 +1,14 @@
+#!/bin/bash -e
+
+# "script/setup is typically run after an initial clone, or to
+# reset the project to its initial state."
+#    -- scripts-to-rule-them-all
+
+cd $(dirname $0)/..
+[ -d 'services' ] && echo "removing existing services/ directory"
+
+rm -rf services
+
+mkdir services
+
+script/bootstrap

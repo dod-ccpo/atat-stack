@@ -1,0 +1,5 @@
+#!/bin/bash -e
+
+SERVICES="atst authnid fundz"
+
+echo "not yet implemented"
