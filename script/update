@@ -1,7 +1,9 @@
 #!/bin/bash -e
 
-SERVICES="atst authnid fundz"
+
 cd $(dirname $0)/../services
+source services.ini
+
 top=$(pwd)
 for service in $SERVICES; do
     cd $top/$service

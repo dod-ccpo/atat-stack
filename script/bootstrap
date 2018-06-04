@@ -6,9 +6,9 @@
 # In this case, the dependencies are the other services, so this
 # script runs script/setup for all the other services.
 
-SERVICES="atst authnid fundz"
 
 cd "$(dirname "${0}")/.."
+source services.ini
 cd services
 top=$(pwd)
 mkdir -p log
