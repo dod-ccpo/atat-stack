@@ -1,10 +1,21 @@
 #!/bin/bash -e
 
-SERVICES="atst authnid fundz"
-cd $(dirname $0)/../services
+cd $(dirname $0)/..
+source services.ini
+cd services
 top=$(pwd)
+mkdir -p log
+i=1
 for service in $SERVICES; do
     cd $top/$service
-    script/test
+    log=$top/log/$service.test.log
+    echo "# testing $service"
+    if script/test > $log 2>&1; then
+        echo "ok $i - $service"
+    else
+        echo "not ok $i - $service"
+        echo "# See $log"
+    fi
+    i=$(expr $i + 1)
 done
 

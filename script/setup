@@ -5,10 +5,7 @@
 #    -- scripts-to-rule-them-all
 
 cd $(dirname $0)/..
-[ -d 'services' ] && echo "removing existing services/ directory"
 
-rm -rf services
-
-mkdir services
+rm -rf services/*
 
 script/bootstrap
