@@ -14,11 +14,16 @@ top=$(pwd)
 
 mkdir -p log
 
-for service in ${SERVICES[@]}; do
+for repo in ${SERVICES[@]}; do
+    IFS="@"
+    set $repo
+    service=$1
+    version=$2
+
     cd $top
-    echo "Cloning $service"
-    curl -sSL https://github.com/dod-ccpo/$service/archive/${!service[version]}.tar.gz | tar xvz
-    mv $service-${!service[version]} $service
+    echo "Cloning $service at $version"
+    curl -sSL https://github.com/dod-ccpo/$service/archive/$version.tar.gz | tar xvz
+    mv $service-$version $service
     # "script/setup is typically run after an initial clone"
     cd $top/$service
     log=$top/log/$service.setup.log
