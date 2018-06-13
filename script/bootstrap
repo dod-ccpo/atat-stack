@@ -8,17 +8,20 @@
 
 
 cd "$(dirname "${0}")/.."
-source services.ini
+eval "$(cat services.ini  | ./ini_parser.py)"
 cd services
 top=$(pwd)
+
 mkdir -p log
-for service in $SERVICES; do
+
+for service in ${SERVICES[@]}; do
     cd $top
     echo "Cloning $service"
-    git clone -q -o github github.com:dod-ccpo/$service
+    curl -sSL https://github.com/dod-ccpo/$service/archive/${!service[version]}.tar.gz | tar xvz
+    mv $service-${!service[version]} $service
     # "script/setup is typically run after an initial clone"
     cd $top/$service
     log=$top/log/$service.setup.log
     echo "Writing to $log";
-    script/setup > $log 2>&1 || echo "Setup failed for $service"
+    script/setup 2>&1 | tee $log || echo "Setup failed for $service"
 done
