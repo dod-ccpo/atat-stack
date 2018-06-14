@@ -1,7 +1,12 @@
 #!/bin/bash -e
 
-cd $(dirname $0)/..
+cd "$(dirname "${0}")/.."
+eval "$(cat services.ini  | ./ini_parser.py)"
 
-source services.ini
+rm -f Procfile || true
+touch Procfile
 
-echo "not yet implemented"
+for service in ${SERVICE_NAMES[@]}; do
+    echo "$service: ./services/$service/script/server" >> Procfile
+done
+foreman start -t 5
