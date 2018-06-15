@@ -1,5 +1,0 @@
-#!/bin/bash -e
-
-# sometimes foreman doesn't kill processes properly
-
-sudo lsof -ti :8000-8005 | xargs kill
