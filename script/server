@@ -1,12 +1,3 @@
 #!/bin/bash -e
 
-cd "$(dirname "${0}")/.."
-eval "$(cat services.ini  | ./ini_parser.py)"
-
-rm -f Procfile || true
-touch Procfile
-
-for service in ${SERVICE_NAMES[@]}; do
-    echo "$service: ./services/$service/script/server" >> Procfile
-done
 foreman start -t 5
