@@ -1,21 +1,15 @@
-#!/bin/bash -e
+#!/bin/bash
 
-cd $(dirname $0)/..
-eval "$(cat services.ini  | ./ini_parser.py)"
-cd services
-top=$(pwd)
-mkdir -p log
-i=1
-for service in ${SERVICE_NAMES[@]}; do
-    cd $top/$service
-    log=$top/log/$service.test.log
-    echo "# testing $service"
-    if script/test > $log 2>&1; then
-        echo "ok $i - $service"
-    else
-        echo "not ok $i - $service"
-        echo "# See $log"
-    fi
-    i=$(expr $i + 1)
-done
+# If a command fails, exit the script
+set -e
+
+# Ensure we are in the app root directory (not the /script directory)
+cd "$(dirname "${0}")/.."
+
+# Run unit tests
+if ! curl -s --fail http://localhost:8000 > /dev/null; then
+  echo "Make sure you're running the server before running tests!"
+  exit
+fi
+pipenv run python -m pytest -s $*
 

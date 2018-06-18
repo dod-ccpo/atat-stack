@@ -6,6 +6,8 @@
 
 cd $(dirname $0)/..
 
+pip install pipenv
+
 rm -rf services/*
 
 script/bootstrap

@@ -12,6 +12,10 @@ eval "$(cat services.ini  | ./ini_parser.py)"
 cd services
 top=$(pwd)
 
+# Install Python dependencies
+pipenv --python 3.6
+pipenv install --dev
+
 mkdir -p log
 
 
