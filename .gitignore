@@ -1,1 +1,30 @@
 Procfile
+# Node modules get installed here
+node_modules/
+
+# sass and webassets output artifacts
+scss/assets
+scss/variables.scss
+scss/variables.scss.map
+.sass-cache/
+.webassets-cache
+
+# Python virtual env
+.venv/
+
+.pytest_cache/
+__pycache__
+
+# Compiled python bytecode files
+*.pyc
+.cache/
+
+# static/fonts for now, since it is just symlink
+static/fonts
+# font files originate from a node module
+static/fonts/*
+
+# local log files
+log/*
+
+config/dev.ini

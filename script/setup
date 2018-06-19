@@ -7,6 +7,8 @@
 cd "$(dirname "${0}")/.."
 eval "$(cat services.ini  | ./ini_parser.py)"
 
+pip install pipenv
+
 rm -rf services/*
 
 script/bootstrap

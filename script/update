@@ -1,12 +1,37 @@
 #!/bin/bash -e
 
+# "script/update is used to update the project after a fresh pull."
+#    -- scripts-to-rule-them-all
 
-cd $(dirname $0)/../services
-source services.ini
+# In this case, the dependencies are the other services, so this
+# script pulls new tarballs, rsyncs the contents to update any changes and
+# runs script/update for all the other services.
 
+
+cd "$(dirname "${0}")/.."
+eval "$(cat services.ini  | ./ini_parser.py)"
+cd services
 top=$(pwd)
-for service in $SERVICES; do
-    cd $top/$service
-    script/update
-done
 
+# Install Python dependencies
+pipenv install --dev
+
+mkdir -p log
+echo "Writing logs to $top/log"
+
+for repo in ${SERVICES[@]}; do
+    IFS="@"
+    set $repo
+    service=$1
+    version=$2
+
+    cd $top
+    log=$top/log/$service.update.log
+    echo "Updating $service at $version (`basename $log`)"
+    curl -sSL https://github.com/dod-ccpo/$service/archive/$version.tar.gz | tar xz
+    rsync -rq $service-$version/. $service/.
+    rm -r $service-$version
+    # # "script/setup is typically run after an initial clone"
+    cd $top/$service
+    script/update > $log 2>&1 || echo "⚠️  Update failed for $service"
+done
