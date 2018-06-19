@@ -11,5 +11,5 @@ def test_login(client):
             ),
             verify=False
         )
-    assert login_resp.url == 'http://localhost:8000/home'
+    assert login_resp.url == qualified_url('/home')
 
