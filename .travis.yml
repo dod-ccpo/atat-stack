@@ -12,4 +12,3 @@ services:
   - docker
 env:
   - FLASK_ENV=ci
-  - ATAT_STACK_VERBOSE=yup

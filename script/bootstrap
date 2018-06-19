@@ -38,7 +38,7 @@ for repo in ${SERVICES[@]}; do
     # "script/setup is typically run after an initial clone"
     cd $top/$service
     log=$top/log/$service.setup.log
-    if [ -n "${ATAT_STACK_VERBOSE+set}" ]; then
+    if [ -n "${CI}" ]; then
       echo -e "\tscript/setup: Starting output for $service";
       script/setup
     else
