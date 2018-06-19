@@ -1,7 +1,3 @@
 #!/bin/bash -e
 
-cd $(dirname $0)/..
-
-source services.ini
-
-echo "not yet implemented"
+foreman start -t 5

@@ -4,8 +4,16 @@
 # reset the project to its initial state."
 #    -- scripts-to-rule-them-all
 
-cd $(dirname $0)/..
+cd "$(dirname "${0}")/.."
+eval "$(cat services.ini  | ./ini_parser.py)"
 
 rm -rf services/*
 
 script/bootstrap
+
+rm -f Procfile || true
+touch Procfile
+
+for service in ${SERVICE_NAMES[@]}; do
+    echo "$service: ./services/$service/script/server" >> Procfile
+done
