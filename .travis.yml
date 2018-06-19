@@ -5,10 +5,11 @@ python:
 before_script:
   - script/setup
 script:
-  - script/server
+  - script/server &
   - script/test
 services:
   - postgresql
   - docker
 env:
   - FLASK_ENV=ci
+  - ATAT_STACK_VERBOSE=yup
