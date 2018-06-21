@@ -1,0 +1,15 @@
+sudo: required
+language: python
+python:
+  - "3.6"
+before_script:
+  - script/setup
+  - script/server &
+  - sleep 5
+script:
+  - script/test
+services:
+  - postgresql
+  - docker
+env:
+  - FLASK_ENV=ci
