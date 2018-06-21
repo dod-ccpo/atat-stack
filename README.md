@@ -1,5 +1,7 @@
 # atat-stack : Account Tracking and Automation Tool Stack
 
+[![Build Status](https://travis-ci.org/dod-ccpo/atat-stack.svg?branch=master)](https://travis-ci.org/dod-ccpo/atat-stack)
+
 Quick start
 ------------
 
