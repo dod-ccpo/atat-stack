@@ -4,8 +4,9 @@ python:
   - "3.6"
 before_script:
   - script/setup
-script:
   - script/server &
+  - sleep 5
+script:
   - script/test
 services:
   - postgresql
