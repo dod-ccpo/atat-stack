@@ -40,9 +40,11 @@ for repo in ${SERVICES[@]}; do
     log=$top/log/$service.setup.log
     if [ -n "${CI}" ]; then
       echo -e "\tscript/setup: Starting output for $service";
-      script/setup
+      script/setup &
     else
       echo -e "\tscript/setup: Output at $log";
-      script/setup > $log 2>&1 || echo "⚠️  Setup failed for $service"
+      script/setup > $log 2>&1 || echo "⚠️  Setup failed for $service" &
     fi
 done
+
+wait

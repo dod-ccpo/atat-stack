@@ -5,7 +5,7 @@ python:
 before_script:
   - script/setup
   - script/server &
-  - sleep 5
+  - until curl --silent --output /dev/null -k https://localhost:8001; do printf '.' && sleep 1; done
 script:
   - script/test
 services:

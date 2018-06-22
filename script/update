@@ -33,5 +33,7 @@ for repo in ${SERVICES[@]}; do
     rm -r $service-$version
     # # "script/setup is typically run after an initial clone"
     cd $top/$service
-    script/update > $log 2>&1 || echo "⚠️  Update failed for $service"
+    script/update > $log 2>&1 || echo "⚠️  Update failed for $service" &
 done
+
+wait
