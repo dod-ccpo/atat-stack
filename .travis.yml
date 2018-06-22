@@ -5,7 +5,7 @@ python:
 before_script:
   - script/setup
   - script/server &
-  - curl --connect-timeout 5 --retry 10 --retry-delay 2 --retry-connrefused 'http://localhost:8000'
+  - until curl --silent --output /dev/null -k https://localhost:8001; do printf '.' && sleep 1; done
 script:
   - script/test
 services:
