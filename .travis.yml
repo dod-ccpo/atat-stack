@@ -13,5 +13,6 @@ script:
 services:
   - postgresql
   - docker
+  - redis-server
 env:
   - FLASK_ENV=ci
