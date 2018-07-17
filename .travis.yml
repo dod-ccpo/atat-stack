@@ -1,4 +1,6 @@
 sudo: required
+addons:
+  postgresql: "9.5"
 language: python
 python:
   - "3.6"
@@ -11,5 +13,6 @@ script:
 services:
   - postgresql
   - docker
+  - redis-server
 env:
   - FLASK_ENV=ci

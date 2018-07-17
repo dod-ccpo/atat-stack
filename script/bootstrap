@@ -37,6 +37,9 @@ for repo in ${SERVICES[@]}; do
     mv $service-$version $service
     # "script/setup is typically run after an initial clone"
     cd $top/$service
+    curl -sSL https://github.com/dod-ccpo/scriptz/archive/master.tar.gz | tar xz
+    rm -rf script/include || true
+    mv scriptz-master script/include
     log=$top/log/$service.setup.log
     if [ -n "${CI}" ]; then
       echo -e "\tscript/setup: Starting output for $service";
